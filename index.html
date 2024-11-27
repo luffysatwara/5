@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>moonsugarcrush💗</title>
+    <style>
+      html,
+      body {
+background-image: url("https://t4.ftcdn.net/jpg/02/01/28/95/240_F_201289558_RCIMKiSZkHQIrf2nPGERo12wYJZFE1WV.jpg");
+
+        padding: 0;
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+          Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      main {
+        min-height: 80vh;
+        padding: 4rem 2rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #img {
+        width: 350px;
+        height: 350px;
+        object-fit: cover;
+        margin: 1rem;
+      }
+
+      .hits {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <img src="https://i.ibb.co/xMCnY9Q/IMG-20241125-212306-621.jpg"id="img" />
+      <select>
+        <option value="144p">144p</option>
+        <option value="240p">240p</option>
+        <option value="360p">360p</option>
+        <option value="480p">480p</option>
+        <option value="720p">720p</option>
+        <option value="1080p">1080p</option>
+      </select>
+     
+    </main>
+    <script>
+      const img = document.getElementById("img");
+      const select = document.querySelector("select");
+      const hitsDiv = document.getElementById("hits");
+      const music = new Audio("music/sugar.mp3");
+
+      const imageSources = {
+        "144p": "https://i.ibb.co/xMCnY9Q/IMG-20241125-212306-621.jpg",
+        "240p": "https://i.ibb.co/mFz3tNv/IMG-20241125-212304-915.jpg",
+        "360p": "https://i.ibb.co/1XX8fwH/IMG-20241125-212301-642.jpg",
+        "480p": "https://i.ibb.co/y6vVqQx/IMG-20241125-212259-040.jpg",
+        "720p": "https://i.ibb.co/7kQw4YX/IMG-20241125-212256-350.jpg",
+        "1080p": "https://i.pinimg.com/736x/89/c7/94/89c794aacd4b29aa65dfb0a1821d09f9.jpg",
+      };
+
+      const preloadImages = () => {
+        for (const src of Object.values(imageSources)) {
+          const img = new Image();
+          img.src = src;
+        }
+      };
+
+      const preloadAudio = () => {
+        music.preload = "auto";
+      };
+
+      preloadImages();
+      preloadAudio();
+
+      select.addEventListener("change", () => {
+        music.pause();
+        img.src = imageSources[select.value];
+        if (select.value === "1080p") {
+          music.play();
+          music.addEventListener("ended", () => {
+            music.play();
+          });
+        }
+      });
+
+      const showHitCount = () => {
+        const hitCounter = document.createElement("a");
+        const isProduction =
+          window.location.hostname == "moonsugarcrush.netlify.app";
+        hitCounter.href = "https://hits.sh/hits.sh.preview";
+        hitCounter.innerHTML =
+          '<img alt="Hits" src="https://hits.sh/hits.sh.preview?color=000000" />';
+        if (isProduction) {
+          hitCounter.href = "https://hits.sh/moonsugarcrush.netlify.app/";
+          hitCounter.innerHTML =
+            '<img alt="Hits" src="https://hits.sh/moonsugarcrush.netlify.app.svg?color=000000" />';
+        }
+        hitsDiv.appendChild(hitCounter);
+      };
+      showHitCount();
+    </script>
+  </body>
+</html>
